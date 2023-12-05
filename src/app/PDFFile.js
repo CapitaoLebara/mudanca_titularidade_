@@ -9,14 +9,6 @@ Font.registerHyphenationCallback(word => {
     return [word];
 });
 
-Font.register({
-    family: "Calibri",
-    src: "http://fonts.gstatic.com/s/antic/v19/TuGfUVB8XY5DRaZLodgzydtk.ttf",
-})
-Font.register({
-    family: "Calibri-Bold",
-    src: "https://fonts.gstatic.com/s/opensans/v36/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4uaVIGxA.woff2",
-})
 
 
 const styles = StyleSheet.create({
@@ -75,7 +67,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 36,
         paddingHorizontal: 80,
-        fontFamily: "Calibri",
+        fontFamily: "Helvetica",
         lineHeight: 1.1,
     },
     text6: {
