@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 
 import PDFFile from "./PDFFile";
 import extenso from "extenso";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
   //REPLACE CHARS
   const chars = {
@@ -129,254 +129,265 @@ export default function Home() {
     }
 
   }
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   return (
-    <main className="flex flex-col items-center py-4">
-      <header className="w-[60%]">
-        <h1 className="bg-white py-[10px] rounded text-center font-bold shadow-2xl">Mudança de titularidade</h1>
-      </header>
+    <>
+      {isClient ?
+        <main className="flex flex-col items-center py-4">
+          <header className="w-[60%]">
+            <h1 className="bg-white py-[10px] rounded text-center font-bold shadow-2xl">Mudança de titularidade</h1>
+          </header>
 
-      <section className=" mt-8 flex-row flex justify-between w-full px-[15%]  text-left">
-        <div className=" flex flex-col">
-          <h1>Cliente 1</h1>
-          <label className=" mt-3 text-white">
-            Nome Completo:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.nome} onChange={(e) => informacao_completa(e, "nome")} />
-          </label>
-
-          <label className=" mt-3 text-white">
-            CPF:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
-          </label>
-          <label className=" mt-3 text-white">
-            RG:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.RG} onChange={(e) => informacao_completa(e, "RG")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Estado Civil
-            <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_um" value={Cliente_um.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
-              <option value=""></option>
-              <option value="casado(a)">casado(a)</option>
-              <option value="solteiro(a)">solteiro(a)</option>
-              <option value="divorciado(a)">divorciado(a)</option>
-              <option value="união estável">união estável</option>
-              <option value="viúvo(a)">viúvo(a)</option>
-            </select>
-          </label>
-          <label className=" mt-3 text-white">
-            Profissão:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
-          </label>
-
-          {Cliente_um.Estado_Civil == "união estável" || Cliente_um.Estado_Civil == "casado(a)" ? (
-            <>
-              <h1 className="my-4">Informações do Parceiro(a)</h1>
+          <section className=" mt-8 flex-row flex justify-between w-full px-[15%]  text-left">
+            <div className=" flex flex-col">
+              <h1>Cliente 1</h1>
               <label className=" mt-3 text-white">
                 Nome Completo:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.nome} onChange={(e) => informacao_completa(e, "nome")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.nome} onChange={(e) => informacao_completa(e, "nome")} />
               </label>
 
               <label className=" mt-3 text-white">
                 CPF:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
               </label>
               <label className=" mt-3 text-white">
                 RG:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.RG} onChange={(e) => informacao_completa(e, "RG")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.RG} onChange={(e) => informacao_completa(e, "RG")} />
               </label>
               <label className=" mt-3 text-white">
                 Estado Civil
-                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
+                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_um" value={Cliente_um.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
                   <option value=""></option>
-                  <option value={`${Cliente_um.Estado_Civil}`}>{`${Cliente_um.Estado_Civil}`}</option>
-                </select>
-              </label>
-              <label className=" mt-3 text-white">
-                Tipo de Regime
-                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.Tipo_de_uniao} onChange={(e) => informacao_completa(e, "Tipo_de_uniao")}>
-                  <option value=""></option>
-                  <option value="comunhão parcial de bens">comunhão parcial de bens</option>
-                  <option value="comunhão universal de bens">comunhão universal de bens</option>
-                  <option value="separação total de bens">separação total de bens</option>
-                  <option value="participação final nos aquestos">more uxório</option>
-
+                  <option value="casado(a)">casado(a)</option>
+                  <option value="solteiro(a)">solteiro(a)</option>
+                  <option value="divorciado(a)">divorciado(a)</option>
+                  <option value="união estável">união estável</option>
+                  <option value="viúvo(a)">viúvo(a)</option>
                 </select>
               </label>
               <label className=" mt-3 text-white">
                 Profissão:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um" value={Cliente_um.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
               </label>
-            </>
-          ) : (<></>)}
 
-        </div>
-        <div className=" flex flex-col">
-          <h1>Cliente 2</h1>
-          <label className=" mt-3 text-white">
-            Nome Completo:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.nome} onChange={(e) => informacao_completa(e, "nome")} />
-          </label>
+              {Cliente_um.Estado_Civil == "união estável" || Cliente_um.Estado_Civil == "casado(a)" ? (
+                <>
+                  <h1 className="my-4">Informações do Parceiro(a)</h1>
+                  <label className=" mt-3 text-white">
+                    Nome Completo:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.nome} onChange={(e) => informacao_completa(e, "nome")} />
+                  </label>
 
-          <label className=" mt-3 text-white">
-            CPF:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
-          </label>
-          <label className=" mt-3 text-white">
-            RG:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.RG} onChange={(e) => informacao_completa(e, "RG")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Estado Civil
-            <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_dois" value={Cliente_dois.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
-              <option value=""></option>
-              <option value="casado(a)">casado(a)</option>
-              <option value="solteiro(a)">solteiro(a)</option>
-              <option value="divorciado(a)">divorciado(a)</option>
-              <option value="união estável">união estável</option>
-              <option value="viúvo(a)">viúvo(a)</option>
-            </select>
-          </label>
-          <label className=" mt-3 text-white">
-            Profissão:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
-          </label>
+                  <label className=" mt-3 text-white">
+                    CPF:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
+                  </label>
+                  <label className=" mt-3 text-white">
+                    RG:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.RG} onChange={(e) => informacao_completa(e, "RG")} />
+                  </label>
+                  <label className=" mt-3 text-white">
+                    Estado Civil
+                    <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
+                      <option value=""></option>
+                      <option value={`${Cliente_um.Estado_Civil}`}>{`${Cliente_um.Estado_Civil}`}</option>
+                    </select>
+                  </label>
+                  <label className=" mt-3 text-white">
+                    Tipo de Regime
+                    <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.Tipo_de_uniao} onChange={(e) => informacao_completa(e, "Tipo_de_uniao")}>
+                      <option value=""></option>
+                      <option value="comunhão parcial de bens">comunhão parcial de bens</option>
+                      <option value="comunhão universal de bens">comunhão universal de bens</option>
+                      <option value="separação total de bens">separação total de bens</option>
+                      <option value="participação final nos aquestos">more uxório</option>
 
-          {Cliente_dois.Estado_Civil == "união estável" || Cliente_dois.Estado_Civil == "casado(a)" ? (
-            <>
-              <h1 className="my-4">Informações do Parceiro(a)</h1>
+                    </select>
+                  </label>
+                  <label className=" mt-3 text-white">
+                    Profissão:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_um_Parceiro" value={Cliente_um_Parceiro.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
+                  </label>
+                </>
+              ) : (<></>)}
+
+            </div>
+            <div className=" flex flex-col">
+              <h1>Cliente 2</h1>
               <label className=" mt-3 text-white">
                 Nome Completo:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.nome} onChange={(e) => informacao_completa(e, "nome")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.nome} onChange={(e) => informacao_completa(e, "nome")} />
               </label>
 
               <label className=" mt-3 text-white">
                 CPF:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
               </label>
               <label className=" mt-3 text-white">
                 RG:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.RG} onChange={(e) => informacao_completa(e, "RG")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.RG} onChange={(e) => informacao_completa(e, "RG")} />
               </label>
               <label className=" mt-3 text-white">
                 Estado Civil
-                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
+                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_dois" value={Cliente_dois.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
                   <option value=""></option>
-                  <option value={`${Cliente_dois.Estado_Civil}`}>{`${Cliente_dois.Estado_Civil}`}</option>
-                </select>
-              </label>
-              <label className=" mt-3 text-white">
-                Tipo de Regime
-                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.Tipo_de_uniao} onChange={(e) => informacao_completa(e, "Tipo_de_uniao")}>
-                  <option value=""></option>
-                  <option value="comunhão parcial de bens">comunhão parcial de bens</option>
-                  <option value="comunhão universal de bens">comunhão universal de bens</option>
-                  <option value="separação total de bens">separação total de bens</option>
-                  <option value="participação final nos aquestos">more uxório</option>
+                  <option value="casado(a)">casado(a)</option>
+                  <option value="solteiro(a)">solteiro(a)</option>
+                  <option value="divorciado(a)">divorciado(a)</option>
+                  <option value="união estável">união estável</option>
+                  <option value="viúvo(a)">viúvo(a)</option>
                 </select>
               </label>
               <label className=" mt-3 text-white">
                 Profissão:
-                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois" value={Cliente_dois.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
               </label>
-            </>
-          ) : (<></>)}
-        </div>
 
-      </section>
-      <section className=" flex-col flex mt-10 items-center justify-center w-full ">
+              {Cliente_dois.Estado_Civil == "união estável" || Cliente_dois.Estado_Civil == "casado(a)" ? (
+                <>
+                  <h1 className="my-4">Informações do Parceiro(a)</h1>
+                  <label className=" mt-3 text-white">
+                    Nome Completo:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.nome} onChange={(e) => informacao_completa(e, "nome")} />
+                  </label>
 
+                  <label className=" mt-3 text-white">
+                    CPF:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.CPF} onChange={(e) => informacao_completa(e, "CPF")} />
+                  </label>
+                  <label className=" mt-3 text-white">
+                    RG:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.RG} onChange={(e) => informacao_completa(e, "RG")} />
+                  </label>
+                  <label className=" mt-3 text-white">
+                    Estado Civil
+                    <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.Estado_Civil} onChange={(e) => informacao_completa(e, "Estado_Civil")}>
+                      <option value=""></option>
+                      <option value={`${Cliente_dois.Estado_Civil}`}>{`${Cliente_dois.Estado_Civil}`}</option>
+                    </select>
+                  </label>
+                  <label className=" mt-3 text-white">
+                    Tipo de Regime
+                    <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.Tipo_de_uniao} onChange={(e) => informacao_completa(e, "Tipo_de_uniao")}>
+                      <option value=""></option>
+                      <option value="comunhão parcial de bens">comunhão parcial de bens</option>
+                      <option value="comunhão universal de bens">comunhão universal de bens</option>
+                      <option value="separação total de bens">separação total de bens</option>
+                      <option value="participação final nos aquestos">more uxório</option>
+                    </select>
+                  </label>
+                  <label className=" mt-3 text-white">
+                    Profissão:
+                    <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Cliente_dois_Parceiro" value={Cliente_dois_Parceiro.Profissao} onChange={(e) => informacao_completa(e, "Profissao")} />
+                  </label>
+                </>
+              ) : (<></>)}
+            </div>
 
-        <div className="text-left flex flex-col">
-          <label className=" mt-3 text-white">
-            Nome do empreendimento:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.NomeEmpreendimento} onChange={(e) => Atualizacao_do_empreendimento(e, "NomeEmpreendimento")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Quadra:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.Quadra} onChange={(e) => Atualizacao_do_empreendimento(e, "Quadra")} />
-          </label>
-
-          <label className=" mt-3 text-white">
-            Numero do Lote:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.Lote} onChange={(e) => Atualizacao_do_empreendimento(e, "Lote")} />
-          </label>
-
-
-          <label className=" mt-3 text-white">
-            Endereço do Loteamento:
-            <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Lote" value={Informacao_do_lote.Endereco_do_lote} onChange={(e) => Atualizacao_do_empreendimento(e, "Endereco_do_lote")}>
-              <option value=""></option>
-              <option value="Distrito de Maria Quitéria">Distrito de Maria Quitéria - Todos</option>
-              <option value="Jaíba">Jaíba - Morada Brandão</option>
-              <option value="Matinha">Matinha - Matinha, Recanto do Alvorecer</option>
-              <option value="Pé de serra">Pé de serra - Pé de serra, Coroné</option>
-              <option value="Euclides da Cunha">Euclides da Cunha - Eldorado</option>
-              <option value="Sauipe">Sauipe - Sauipe</option>
-              <option value="Campo Limpo">Campo Limpo - João Araujo</option>
-              <option value="Candeal">Candeal - Eco Residence 2</option>
-
-            </select>
-          </label>
-          <label className=" mt-3 text-white">
-            Metragem Total:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Total" value={Informacao_do_lote.metragemTotal} onChange={(e) => Atualizacao_do_empreendimento(e, "metragemTotal")} />
-          </label>
-
-
-          <label className=" mt-3 text-white">
-            Frente:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Frente" value={Informacao_do_lote.MetragemFrente} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemFrente")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Fundo:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Fundo" value={Informacao_do_lote.MetragemFundo} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemFundo")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Lateral Direita:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Direito" value={Informacao_do_lote.MetragemLDireito} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemLDireito")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Lateral Esquerda:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Esquerda" value={Informacao_do_lote.MetragemLEsquerdo} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemLEsquerdo")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Quanto Pagou:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Quanto_Pagou" value={Informacao_do_lote.quanto_pagou} onChange={(e) => Atualizacao_do_empreendimento(e, "quanto_pagou")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Quanto vai ficar restando para pagar:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Quanto_vai_pagar" value={Informacao_do_lote.quanto_vai_pagar} onChange={(e) => Atualizacao_do_empreendimento(e, "quanto_vai_pagar")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Quantidade de parcelas restantes:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.parcelas} onChange={(e) => Atualizacao_do_empreendimento(e, "parcelas")} />
-          </label>
-          <label className=" mt-3 text-white">
-            Valor de cada parcela Restante:
-            <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="valor_parcelas" value={Informacao_do_lote.valor_parcelas} onChange={(e) => Atualizacao_do_empreendimento(e, "valor_parcelas")} />
-          </label>
-
-          <label className=" mt-3 text-white">
-            Qual o proprietário que vai assinar:
-            <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Lote" value={Informacao_do_lote.proprietario} onChange={(e) => Atualizacao_do_empreendimento(e, "proprietario")}>
-              <option value=""></option>
-              <option value="A&A EMPREENDIMENTOS IMOBILIÁRIOS">A&A EMPREENDIMENTOS IMOBILIARIOS</option>
-              <option value="AV DE SOUZA EMPREENDIMENTOS IMOBILIÁRIOS">AV DE SOUZA EMPREENDIMENTOS IMOBILIARIOS</option>
-            </select>
-          </label>
-        </div>
+          </section>
+          <section className=" flex-col flex mt-10 items-center justify-center w-full ">
 
 
-        <div className="mt-10">
-          <button >
-            <PDFDownloadLink document={<PDFFile Informacao_do_lote={Informacao_do_lote} Cliente_dois={Cliente_dois} Cliente_dois_Parceiro={Cliente_dois_Parceiro} Cliente_um={Cliente_um} Cliente_um_Parceiro={Cliente_um_Parceiro} />} fileName="Mudanca-de-Titularidade">
-              {({ loading }) => loading ? <button className=" bg-green-600 rounded px-4 py-2">Carregando...</button> : <button className=" border border-black bg-green-600 rounded px-4 py-2">Gerar PDF</button>}
-            </PDFDownloadLink>
-          </button>
+            <div className="text-left flex flex-col">
+              <label className=" mt-3 text-white">
+                Nome do empreendimento:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.NomeEmpreendimento} onChange={(e) => Atualizacao_do_empreendimento(e, "NomeEmpreendimento")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Quadra:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.Quadra} onChange={(e) => Atualizacao_do_empreendimento(e, "Quadra")} />
+              </label>
 
-        </div>
-        
+              <label className=" mt-3 text-white">
+                Numero do Lote:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.Lote} onChange={(e) => Atualizacao_do_empreendimento(e, "Lote")} />
+              </label>
 
-      </section>
-    </main>
+
+              <label className=" mt-3 text-white">
+                Endereço do Loteamento:
+                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Lote" value={Informacao_do_lote.Endereco_do_lote} onChange={(e) => Atualizacao_do_empreendimento(e, "Endereco_do_lote")}>
+                  <option value=""></option>
+                  <option value="Distrito de Maria Quitéria">Distrito de Maria Quitéria - Todos</option>
+                  <option value="Jaíba">Jaíba - Morada Brandão</option>
+                  <option value="Matinha">Matinha - Matinha, Recanto do Alvorecer</option>
+                  <option value="Pé de serra">Pé de serra - Pé de serra, Coroné</option>
+                  <option value="Euclides da Cunha">Euclides da Cunha - Eldorado</option>
+                  <option value="Sauipe">Sauipe - Sauipe</option>
+                  <option value="Campo Limpo">Campo Limpo - João Araujo</option>
+                  <option value="Candeal">Candeal - Eco Residence 2</option>
+
+                </select>
+              </label>
+              <label className=" mt-3 text-white">
+                Metragem Total:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Total" value={Informacao_do_lote.metragemTotal} onChange={(e) => Atualizacao_do_empreendimento(e, "metragemTotal")} />
+              </label>
+
+
+              <label className=" mt-3 text-white">
+                Frente:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Frente" value={Informacao_do_lote.MetragemFrente} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemFrente")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Fundo:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Fundo" value={Informacao_do_lote.MetragemFundo} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemFundo")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Lateral Direita:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Direito" value={Informacao_do_lote.MetragemLDireito} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemLDireito")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Lateral Esquerda:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Metragem_Esquerda" value={Informacao_do_lote.MetragemLEsquerdo} onChange={(e) => Atualizacao_do_empreendimento(e, "MetragemLEsquerdo")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Quanto Pagou:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Quanto_Pagou" value={Informacao_do_lote.quanto_pagou} onChange={(e) => Atualizacao_do_empreendimento(e, "quanto_pagou")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Quanto vai ficar restando para pagar:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Quanto_vai_pagar" value={Informacao_do_lote.quanto_vai_pagar} onChange={(e) => Atualizacao_do_empreendimento(e, "quanto_vai_pagar")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Quantidade de parcelas restantes:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="Lote" value={Informacao_do_lote.parcelas} onChange={(e) => Atualizacao_do_empreendimento(e, "parcelas")} />
+              </label>
+              <label className=" mt-3 text-white">
+                Valor de cada parcela Restante:
+                <input className=" text-black ml-2 pl-2 outline-none py-1 rounded" type="text" name="valor_parcelas" value={Informacao_do_lote.valor_parcelas} onChange={(e) => Atualizacao_do_empreendimento(e, "valor_parcelas")} />
+              </label>
+
+              <label className=" mt-3 text-white">
+                Qual o proprietário que vai assinar:
+                <select className=" text-black ml-2 pl-2 outline-none py-1 rounded" name="Lote" value={Informacao_do_lote.proprietario} onChange={(e) => Atualizacao_do_empreendimento(e, "proprietario")}>
+                  <option value=""></option>
+                  <option value="A&A EMPREENDIMENTOS IMOBILIÁRIOS">A&A EMPREENDIMENTOS IMOBILIARIOS</option>
+                  <option value="AV DE SOUZA EMPREENDIMENTOS IMOBILIÁRIOS">AV DE SOUZA EMPREENDIMENTOS IMOBILIARIOS</option>
+                </select>
+              </label>
+            </div>
+
+
+            <div className="mt-10">
+              <button >
+                <PDFDownloadLink document={<PDFFile Informacao_do_lote={Informacao_do_lote} Cliente_dois={Cliente_dois} Cliente_dois_Parceiro={Cliente_dois_Parceiro} Cliente_um={Cliente_um} Cliente_um_Parceiro={Cliente_um_Parceiro} />} fileName="Mudanca-de-Titularidade">
+                  {({ loading }) => loading ? <button className=" bg-green-600 rounded px-4 py-2">Carregando...</button> : <button className=" border border-black bg-green-600 rounded px-4 py-2">Gerar PDF</button>}
+                </PDFDownloadLink>
+              </button>
+
+            </div>
+
+
+          </section>
+        </main>
+        : null}
+
+
+    </>
+
   )
 }
